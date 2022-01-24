@@ -28,7 +28,7 @@ class Donation extends Model
     {
         $this->attributs['status'] = 'Success';
         self::save();
-
+    }
     /** 
      * Set status to Failed
      * 
@@ -38,7 +38,7 @@ class Donation extends Model
     {
         $this->attributs['status'] = 'Failed';
         self::save();
-    
+    }
     /** 
      * Set status to Expired
      * 
@@ -48,5 +48,5 @@ class Donation extends Model
     {
         $this->attributs['status'] = 'Expired';
         self::save();
-    
+    }
 }
