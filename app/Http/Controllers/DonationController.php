@@ -11,6 +11,15 @@ use Veritrans_Notification;
 
 class DonationController extends Controller
 {
+
+    Public function __construct()
+    {
+        Veritrans_Config::$serverKey = config('service.midtrans.serverKey');
+        Veritrans_Config::$isProduction = config('service.midtrans.isProduction');
+        Veritrans_Config::$isSanitized = config('service.midtrans.isSanitized');
+        Veritrans_Config::$is3ds = config('service.midtrans.is3ds');
+    }
+    
     public function index()
     {
         return view('donation');
@@ -46,7 +55,7 @@ class DonationController extends Controller
             ]
         ];
         $snapToken = Veritrans_Snap::getSnapToken($payload);
-        $donation->snap_token =$snapToken;
+        $donation->snap_token = $snapToken;
         $donation->save();
 
         $this->response['snap_token'] = $snapToken;

@@ -18,7 +18,7 @@ class CreateDonationsTable extends Migration
             $table->string('donor_name')->nullable();
             $table->string('donor_email')->nullable();
             $table->string('donoation_type')->nullable();
-            $table->desimal('amount',20,2)->default(0);
+            $table->decimal('amount',20,2)->default(0);
             $table->string('note')->nullable();
             $table->string('status')->defalult('pending');
             $table->string('snap_token')->nullable();
