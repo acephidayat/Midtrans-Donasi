@@ -19,8 +19,14 @@ class DonationController extends Controller
         Veritrans_Config::$isSanitized = config('service.midtrans.isSanitized');
         Veritrans_Config::$is3ds = config('service.midtrans.is3ds');
     }
-    
+
     public function index()
+    {
+        $donations = Donation::orderBY('id', 'DESC')->paginate(8);
+        return view('welcome', compact('donations'));
+    }
+    
+    public function create()
     {
         return view('donation');
     }
