@@ -40,7 +40,7 @@
     </div>
 
     <div class="container">
-        <table class="table-striped">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -80,10 +80,10 @@
     </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js">
     </script>
-    <script type="text/javascript"
-    src="https//app.sandbox.midtrans.com/snap/snap.js"
-    data-client-key="{{config('services.midtrans.clientKey') }}">
-    </script>
+    <script src="{{
+        !config('services.midtrans.isProduction') ? 'https://app.sandbox.midtrans.com/snap/snap.js' : 'https://app.midtrans.com/snap/snap.js' }}"
+        data-client-key="{{ config('services.midtrans.clientKey')
+    }}"></script>
     </body>
 
     </html>

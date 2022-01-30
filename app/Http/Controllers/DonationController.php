@@ -22,7 +22,7 @@ class DonationController extends Controller
 
     public function index()
     {
-        $donations = Donation::orderBY('id', 'DESC')->paginate(8);
+        $donations = Donation::orderBy('id', 'desc')->paginate(8);
         return view('welcome', compact('donations'));
     }
     
@@ -49,15 +49,17 @@ class DonationController extends Controller
                     'gross_amount'=>$donation->amount,
                 ],
                 'customer_details'=> [
-                    'first_name'=>$donation->name,
-                    'email'=>$donation->email,
+                    'first_name'=>$donation->donor_name,
+                    'email'=>$donation->donor_email,
+                     // 'phone'         => '08888888888',
+                    // 'address'       => '',
                 ],
                 'item_details'=> [
                 [
                     'id'=>$donation->donation_type,
                     'price'=>$donation->amount,
-                    'quantity'=>1,
-                    'name'=>ucwords(str_replace('-','',$donation->donation_type))
+                    'quantity'=> 1,
+                    'name'=>ucwords(str_replace('_','',$donation->donation_type))
                 ]
             ]
         ];
@@ -71,9 +73,10 @@ class DonationController extends Controller
      return response()->json($this->response);
     }
 
-    public function notification()
+    public function notification(Request $request)
     {
         $notif = new \Midtrans\Notification();
+
         \DB::transaction(function () use ($notif) {
 
             $transactionStatus = $notif->transaction_status;
@@ -85,7 +88,7 @@ class DonationController extends Controller
             if ($transactionStatus == 'capture'){
                 if ($paymentType == 'credit_card'){
                     
-                    if($fraudStatus == 'challenge'){
+                    if($fraud == 'challenge'){
                         $donation->setStatusPending(); 
                     }else{
                         $donation->setStatusSuccsess();
