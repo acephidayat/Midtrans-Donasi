@@ -79,14 +79,14 @@ class DonationController extends Controller
 
         \DB::transaction(function () use ($notif) {
 
-            $transactionStatus = $notif->transaction_status;
-            $paymentType = $notif->payment_type;
+            $transaction = $notif->transaction_status;
+            $type = $notif->payment_type;
             $orderId = $notif->order_id;
             $fraud = $notif->fraud_status;
             $donation = Donation::where('order_id', $orderId)->frist();
 
-            if ($transactionStatus == 'capture'){
-                if ($paymentType == 'credit_card'){
+            if ($transaction == 'capture'){
+                if ($type == 'credit_card'){
                     
                     if($fraud == 'challenge'){
                         $donation->setStatusPending(); 
@@ -94,15 +94,15 @@ class DonationController extends Controller
                         $donation->setStatusSuccsess();
                     }
                 }
-            }elseif ($transactionStatus == 'settlement'){
+            }elseif ($transaction == 'settlement'){
                 $donation->setStatusSuccess();
-            }elseif ($transactionStatus == 'pending'){
+            }elseif ($transaction == 'pending'){
                 $donation->setStatusPending();
-            }elseif ($transactionStatus == 'deny'){
+            }elseif ($transaction == 'deny'){
                 $donation->setStatusFailed();
-            }elseif ($transactionStatus == 'expire'){
+            }elseif ($transaction == 'expire'){
                 $donation->setStatusExpired();
-            }elseif ($transactionStatus == 'cencel'){
+            }elseif ($transaction == 'cancel'){
                 $donation->setStatusFailed();
             }
         });
