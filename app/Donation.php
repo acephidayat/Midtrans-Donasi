@@ -16,8 +16,8 @@ class Donation extends Model
     Public function setStatusPending()
     {
         $this->attributes['status'] = 'pending';
-        self::save();
-        // $this->save();
+        // self::save();
+        $this->save();
     }
 
     /** 
@@ -28,8 +28,8 @@ class Donation extends Model
     Public function setStatusSuccsess()
     {
         $this->attributes['status'] = 'Success';
-        self::save();
-        // $this->save();
+        // self::save();
+        $this->save();
     }
     /** 
      * Set status to Failed
@@ -39,8 +39,8 @@ class Donation extends Model
     Public function setStatusFailed()
     {
         $this->attributes['status'] = 'Failed';
-        self::save();
-        // $this->save();
+        // self::save();
+        $this->save();
     }
     /** 
      * Set status to Expired
@@ -50,7 +50,7 @@ class Donation extends Model
     Public function setStatusExpired()
     {
         $this->attributes['status'] = 'Expired';
-        self::save();
-        // $this->save();
+        // self::save();
+        $this->save();
     }
 }
